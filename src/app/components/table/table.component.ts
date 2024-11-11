@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TABLE_HEADERS, TABLE_KEYS } from './table.component.consts';
 import { EventsFacadeService } from '../../services/events-facade.service';
 import { AnimalEvent } from '../../models';
@@ -10,7 +10,8 @@ import { FocusOnRenderDirective } from '../../directives/focus-on-render.directi
   standalone: true,
   imports: [FormsModule, FocusOnRenderDirective],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+  styleUrl: './table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
   eventsFacadeService = inject(EventsFacadeService);
