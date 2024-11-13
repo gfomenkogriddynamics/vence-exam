@@ -1,0 +1,56 @@
+<button (click)="enterAddNewRowMode()" [disabled]="isAddingNewRow()" class="add-row-button">Add row</button>
+
+<div class="table-container">
+  @if (isLoading()) {
+    <div class="overlay"></div>
+  }
+
+  <table class="scrollable-table">
+    <thead>
+    <tr>
+      @for (header of tableHeaders; track header) {
+        <th>{{ header }}</th>
+      }
+    </tr>
+    </thead>
+
+    <tbody>
+      @if (isAddingNewRow()) {
+        <tr>
+          <td class="add-new-cell">
+            <button (click)="saveRow()">Save</button>
+            <button (click)="leaveAddNewRowMode()" class="button-danger">Cancel</button>
+          </td>
+          @for (key of tableKeys; track key) {
+            <td>
+              @if (key !== 'eventId') {
+                <input type="text" [(ngModel)]="newRowValue[key]"/>
+              }
+            </td>
+          }
+        </tr>
+      }
+
+      @for (event of events(); track event.eventId) {
+        <tr>
+          <td>
+            <button (click)="deleteRow(event.eventId)" class="button-danger">Remove</button>
+          </td>
+          @for (key of tableKeys; track key) {
+            <td (click)="enterEditMode(event, key)">
+              @if (editableCell() && editableCell()?.eventId === event.eventId && editableCell()?.key === key) {
+                <div class="editable-cell">
+                  <input appFocusOnRender type="text" [(ngModel)]="inputValue"/>
+                  <button (click)="saveCell($event, event, key)">Save</button>
+                  <button (click)="leaveEditMode($event)" class="button-danger">Cancel</button>
+                </div>
+              } @else {
+                {{ event[key] }}
+              }
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

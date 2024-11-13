@@ -1,0 +1,56 @@
+.table-container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollable-table {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+th {
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.overlay {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.editable-cell {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 2px;
+
+  input {
+    min-width: 160px;
+    max-width: 160px;
+    grid-area: 1 / 1 / 2 / 3;
+  }
+}
+
+.add-new-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.add-row-button {
+  margin-bottom: 8px;
+}
